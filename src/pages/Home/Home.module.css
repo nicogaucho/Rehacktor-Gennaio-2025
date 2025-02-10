@@ -1,0 +1,22 @@
+.main {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sidebar{
+  width: 15%;
+}
+
+.games_wrapper {
+  display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.heading {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}

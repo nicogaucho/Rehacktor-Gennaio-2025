@@ -1,0 +1,11 @@
+.gridLayout{
+  display: flex;
+  gap: 1rem;
+}
+
+
+.navigationEffect:hover {
+  scale: 1.1;
+  transition: 0.4s;
+  cursor: pointer;
+} 
