@@ -23,12 +23,18 @@ export default function Genre() {
             <p>Based on player counts and release date</p>
           </div>
         </div>
+        {loading && (
+          <img
+            style={{ width: "100%", height: "100vh" }}
+            alt="loading"
+            id="loadingImages"
+            src="https://i.imgur.com/LVHmLnb.gif"
+          />
+        )}
+        {error && <h1>{error}</h1>}
         <div className={styles.games_wrapper}>
-          {loading && <progress />}
-          {error && <h1>{error}</h1>}
-          {data && data.results.map((game) => (
-            <GameCard key={game.id} game={game} />
-          ))}
+          {data &&
+            data.results.map((game) => <GameCard key={game.id} game={game} />)}
         </div>
       </div>
     </div>

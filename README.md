@@ -1,7 +1,7 @@
 # Day 1 - Rehacktor Gennaio 2025
 
 * Setup progetto
-  * [x] Vite 
+  * [x] Vite
   * [x] Style
   * [x] Routing lib
 * [x] Crezione Markup Layout
@@ -13,6 +13,7 @@
   * [x] Richiesta API per filtri su /
 * [x] Richiesta API per giochi sul genere filtrato su /games/genre
 * [x] Richiesta API per dettaglio gioco su /games/game-name
+* [x] Custom hook per eliminare la duplicazione
 * [ ] Funzionalitá su /
   * [ ] Cerca per nome gioco
   * [ ] Sistema di paginazione

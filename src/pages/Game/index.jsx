@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import useFetchSolution from '../../hooks/useFetchSolution';
+import useFetchSolution from "../../hooks/useFetchSolution";
 
 export default function Game() {
   const { id } = useParams();
@@ -10,7 +10,14 @@ export default function Game() {
 
   return (
     <div className="container">
-      {loading && <progress />}
+      {loading && (
+        <img
+          style={{ width: "100%", height: "100vh" }}
+          alt="loading"
+          id="loadingImages"
+          src="https://i.imgur.com/LVHmLnb.gif"
+        />
+      )}
       {error && <h1>{error}</h1>}
       <img src={data && data.background_image} alt="" />
       <h1>{data && data.name}</h1>
