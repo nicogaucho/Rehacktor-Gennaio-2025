@@ -1,0 +1,12 @@
+.game {
+  width: 100%;
+  display: flex;
+}
+
+.sectionGameImage {
+  width: 50%;
+} 
+
+.sectionGameInfo {
+  width: 50%;
+}
