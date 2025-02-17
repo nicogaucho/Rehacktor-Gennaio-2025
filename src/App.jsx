@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router";
 import Markup from "./layout/index";
 import Home from "./pages/Home/index";
@@ -6,13 +7,14 @@ import Game from "./pages/Game/index";
 import SignUp from "./pages/SignUp/index";
 import SignIn from "./pages/SignIn/index";
 import Account from "./pages/Account";
-import { useContext } from "react";
-import SessionContextProvider from './context/SessionContextProvider';
+import Search from './pages/Search/index';
+import Review from "./pages/Review";
+import SessionContextProvider from "./context/SessionContextProvider";
 import SessionContext from "./context/SessionContext";
-
+import FavContextProvider from './context/FavContextProvider';
 
 export function ProtectedRoute() {
-  const { session } = useContext(SessionContext);  
+  const { session } = useContext(SessionContext);
   if (!session) {
     return <Navigate to={"/"} />;
   }
@@ -27,6 +29,8 @@ export function App() {
           <Route path="/" element={<Home />} />
           <Route path="/games/:genre" element={<Genre />} />
           <Route path="/games/:id/:game" element={<Game />} />
+          <Route path="/games/review/:id" element={<Review />} />
+          <Route path="/search" element={<Search />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/account" element={<Account />} />
           </Route>
@@ -41,7 +45,9 @@ export function App() {
 function Root() {
   return (
     <SessionContextProvider>
-      <App />
+      <FavContextProvider>
+        <App />
+      </FavContextProvider>
     </SessionContextProvider>
   );
 }

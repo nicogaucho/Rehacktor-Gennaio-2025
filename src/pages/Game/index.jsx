@@ -1,21 +1,28 @@
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import useFetchSolution from "../../hooks/useFetchSolution";
 import styles from "./Game.module.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import SessionContext from "../../context/SessionContext";
 import supabase from "../../supabase/client";
 import { Toaster, toast } from "sonner";
-import { div } from "framer-motion/client";
+import FavContext from "../../context/FavContext";
+import GameReviews from './components/GameReviews';
 
 export default function Game() {
   const { session } = useContext(SessionContext);
-  const [fav, setFav] = useState([]);
+  const { fav, setFav } = useContext(FavContext);
 
   const { id } = useParams();
 
   const initialUrl = `https://api.rawg.io/api/games/${id}?key=9269195f491e44539d7a2d10ce87ab15`;
 
   const { loading, data: game, error } = useFetchSolution(initialUrl);
+
+  const isFavorite = () => {
+    if (game) {
+      return fav.find((el) => +el.game_id === game.id);
+    }
+  };
 
   // INSERT...
   const addToFav = async (game) => {
@@ -26,13 +33,16 @@ export default function Game() {
           profile_id: session.user.id,
           game_id: game.id,
           game_name: game.name,
+          game_image: game.background_image,
         },
       ])
       .select();
     if (error) {
       toast.error("Errore di inserimento nei preferiti 😟");
+      readFav();
     } else {
       toast.success("Gioco inserito nei preferiti 🥰");
+      readFav();
     }
   };
   // READ...
@@ -40,7 +50,6 @@ export default function Game() {
     let { data: favourites, error } = await supabase
       .from("favourites")
       .select("*")
-      .eq("game_id", game.id)
       .eq("profile_id", session.user.id);
     if (error) {
       toast.error("Gioco non trovato 😟");
@@ -55,20 +64,14 @@ export default function Game() {
       .delete()
       .eq("game_id", game.id)
       .eq("profile_id", session.user.id);
-      if (error) {
-        toast.error("Non hai rimosso correttamente 😟");
-        readFav();
-      } else {
-        toast.success("Gioco rimosso bene 🥰");
-        readFav();
-      }
-  };
-
-  useEffect(() => {
-    if (session) {
+    if (error) {
+      toast.error("Non hai rimosso correttamente 😟");
+      readFav();
+    } else {
+      toast.success("Gioco rimosso bene 🥰");
       readFav();
     }
-  }, [game]);
+  };
 
   return (
     <div className="container">
@@ -87,23 +90,26 @@ export default function Game() {
           <h1>{game && game.name}</h1>
           {session && (
             <div>
-              {fav.length == 0 ? (
+              {!isFavorite() ? (
                 <button onClick={() => addToFav(game)}>
                   Aggiungi ai preferiti
                 </button>
               ) : (
-                <button class="secondary" onClick={() => removeFav(game)}>
+                <button className="secondary" onClick={() => removeFav(game)}>
                   Rimuovi dai preferiti
                 </button>
               )}
             </div>
           )}
           <p>Rating: {game && game.rating}</p>
-          {session && (
-            <button className="outline contrast">Lascia una review</button>
+          {session && game && (
+            <Link to={`/games/review/${game.id}`}>
+              <button className="outline contrast">Lascia una review</button>
+            </Link>
           )}
           <p>About:</p>
           <p>{game && game.description_raw}</p>
+          <GameReviews game={game} />
         </div>
         <div className={styles.sectionGameInfo}>
           <img src={game && game.background_image} alt="" />

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import Favourites from './Favourites';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -53,7 +54,7 @@ export default function BasicTabs() {
         {/* <ProfileAccount /> */}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        {/* <Favourites /> */}
+        <Favourites />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         {/* <Reviews /> */}

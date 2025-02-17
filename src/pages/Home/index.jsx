@@ -3,6 +3,7 @@ import styles from "./Home.module.css";
 import GameCard from "../../components/GameCard";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import SearchGame from "./components/SearchGame";
 
 // https://api.rawg.io/api/games?key=API_KEY&search=
 
@@ -31,12 +32,7 @@ export default function Home() {
             <p>Based on player counts and release date</p>
           </div>
           <div style={{ width: "50%" }}>
-            <form>
-              <fieldset role="group">
-                <input type="text" name="search" placeholder="Search a game" />
-                <input type="submit" value="Go" />
-              </fieldset>
-            </form>
+            <SearchGame />
           </div>
         </div>
         {games.isLoading && (

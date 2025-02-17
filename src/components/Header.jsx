@@ -2,13 +2,29 @@
 import logoURL from "../assets/logo.png";
 import { Link, useNavigate } from "react-router";
 import supabase from "../supabase/client";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import SessionContext from "../context/SessionContext";
 import { Toaster, toast } from "sonner";
+import Box from "@mui/material/Box";
+// import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+// import Avatar from "@mui/material/Avatar";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
 
 export default function Header() {
   const navigate = useNavigate();
   const { session, user } = useContext(SessionContext);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
   const signOut = async () => {
     await supabase.auth.signOut();
@@ -27,17 +43,43 @@ export default function Header() {
         </ul>
         <ul>
           {session ? (
-            <li>
-              <details className="dropdown">
-                <summary>{user && user.user_metadata.username }</summary>
-                <ul dir="rtl" style={{ padding: "5px 10px" }}>
-                  <li>
-                    <Link to={"/account"}>Account</Link>
-                  </li>
-                  <button onClick={signOut}>Logout</button>
-                </ul>
-              </details>
-            </li>
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton> */}
+                <Typography sx={{ textAlign: "center", p: 0, cursor: "pointer" }} onClick={handleOpenUserMenu}>
+                  {user && user.user_metadata.username}
+                </Typography>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography sx={{ textAlign: "center" }}>
+                    <Link to={"/account"} style={{ textDecoration: "none" }}>Account</Link>
+                  </Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography sx={{ textAlign: "center", color: "black" }} onClick={signOut}>
+                    Logout
+                  </Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
           ) : (
             <>
               <li>

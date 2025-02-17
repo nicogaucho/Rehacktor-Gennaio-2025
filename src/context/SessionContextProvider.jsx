@@ -24,19 +24,22 @@ export default function SessionContextProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    async function getUser() {
-      const { data: { user } } = await supabase.auth.getUser();
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       setUser(user);
-    }
+    };
     getUser();
-  }, [session])
-
+  }, [session]);
 
   return (
-    <SessionContext.Provider value={{ 
-      session, 
-      user
-    }}>
+    <SessionContext.Provider
+      value={{
+        session,
+        user,
+      }}
+    >
       {children}
     </SessionContext.Provider>
   );
