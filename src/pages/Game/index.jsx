@@ -109,7 +109,7 @@ export default function Game() {
           )}
           <p>About:</p>
           <p>{game && game.description_raw}</p>
-          <GameReviews game={game} />
+          <GameReviews game={game} session={session} />
         </div>
         <div className={styles.sectionGameInfo}>
           <img src={game && game.background_image} alt="" />

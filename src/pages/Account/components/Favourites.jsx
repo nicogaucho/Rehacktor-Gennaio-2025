@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { Link } from 'react-router';
-import dayjs from "dayjs";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
@@ -9,6 +8,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import FavContext from "../../../context/FavContext";
+import { formatDate } from "../../../utils/formatDate";
 
 export default function Favourites() {
   const { fav } = useContext(FavContext);
@@ -36,7 +36,7 @@ export default function Favourites() {
                         sx={{ color: "gray" }}
                       >
                         Aggiunto il:{" "}
-                        {dayjs(game.created_at).format("DD/MM/YYYY").toString()}
+                        {formatDate(game.created_at)}
                       </Typography>
                     </>
                   }

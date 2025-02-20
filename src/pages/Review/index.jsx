@@ -22,6 +22,7 @@ export default function Review() {
           review_title: title,
           review_content: content,
           game_id: id,
+          game_name: game.name
         },
       ])
       .select();

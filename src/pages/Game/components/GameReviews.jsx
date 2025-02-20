@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import supabase from "../../../supabase/client";
+import { formatDate } from "../../../utils/formatDate";
 
 export default function GameReviews({ game }) {
   const [reviews, setReviews] = useState([]);
@@ -26,11 +27,14 @@ export default function GameReviews({ game }) {
 
   return (
     <>
-      <h2>Lista reviews</h2>
+      <h3>Recensioni</h3>
       {reviews.map((review) => (
         <article key={review.id}>
-          <h2>{review.review_title}</h2>
+          <strong>{review.review_title}</strong>
           <p>{review.review_content}</p>
+          <small style={{ display: "block", color: "gray", fontSize: "12px" }}>
+            Pubblicata: {formatDate(review.created_at)}
+          </small>
         </article>
       ))}
     </>
