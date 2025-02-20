@@ -7,11 +7,11 @@ import Game from "./pages/Game/index";
 import SignUp from "./pages/SignUp/index";
 import SignIn from "./pages/SignIn/index";
 import Account from "./pages/Account";
-import Search from './pages/Search/index';
+import Search from "./pages/Search/index";
 import Review from "./pages/Review";
 import SessionContextProvider from "./context/SessionContextProvider";
 import SessionContext from "./context/SessionContext";
-import FavContextProvider from './context/FavContextProvider';
+import FavContextProvider from "./context/FavContextProvider";
 
 export function ProtectedRoute() {
   const { session } = useContext(SessionContext);

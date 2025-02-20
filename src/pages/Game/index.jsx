@@ -6,7 +6,8 @@ import SessionContext from "../../context/SessionContext";
 import supabase from "../../supabase/client";
 import { Toaster, toast } from "sonner";
 import FavContext from "../../context/FavContext";
-import GameReviews from './components/GameReviews';
+import GameReviews from "./components/GameReviews";
+import Chat from './components/Chat';
 
 export default function Game() {
   const { session } = useContext(SessionContext);
@@ -113,6 +114,9 @@ export default function Game() {
         </div>
         <div className={styles.sectionGameInfo}>
           <img src={game && game.background_image} alt="" />
+          {session && (
+            <Chat game={game} session={session} />
+          )}
         </div>
       </div>
       <Toaster position="bottom-center" />

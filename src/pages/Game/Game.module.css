@@ -10,3 +10,34 @@
 .sectionGameInfo {
   width: 50%;
 }
+
+.messages {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.chat_message {
+  margin: 2px 0px 0px 0px; 
+  padding: 0px 5px;
+}
+
+.chat_username {
+  padding: 0px;
+  margin: 0px;
+  font-size: 15px;
+  color: gray;
+  font-style: italic;
+}
+
+.message {
+  padding: 0px;
+  margin: 0px;
+}
+
+.timestamps {
+  padding: 0px;
+  font-size: 13px;
+  color: gray;
+  text-align: right;
+}

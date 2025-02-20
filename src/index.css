@@ -27,3 +27,15 @@
   display: block;
   margin: 0px auto;
 }
+
+.chat_game_container {
+  margin-top: 5px;
+  padding: 0px 3px;
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #1b212b;
+  overflow-y: scroll;
+}

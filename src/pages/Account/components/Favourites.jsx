@@ -15,6 +15,7 @@ export default function Favourites() {
 
   return (
     <List sx={{ width: "100%", maxWidth: 360 }}>
+      {fav.length === 0 && <p>Non ci sono giochi preferiti al momento.</p>}
       {fav &&
         fav.map((game) => (
           <>
